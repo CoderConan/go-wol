@@ -28,7 +28,7 @@ curl -X POST -H "Content-Type: application/json" -d '{"mac_address": "00:14:22:0
 
 ### 命令行模式
 
-指定 `-mac` 参数将启动 CLI 模式： `-mac` 参数后输入MAC地址来向改地址发送魔术包。
+指定 `-mac` 参数将启动 CLI 模式： `-mac` 参数后输入需要唤醒的设备的MAC地址，向该地址发送魔术包。
 
 ```bash
 
