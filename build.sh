@@ -20,13 +20,13 @@ build() {
         rm -f ${output}
     fi
 
-    echo "Building $os/$arch binary file..."
+    echo "building $os/$arch binary file..."
     CGO_ENABLED=0 GOOS=$os GOARCH=$arch go build -o=$output main.go
 
     if [ $? -ne 0 ]; then
-        echo "Failed to build for $os/$arch"
+        echo "failed to build for $os/$arch"
     else
-        echo "Successfully build for $os/$arch"
+        echo "successfully build for $os/$arch"
     fi
 }
 
@@ -38,4 +38,4 @@ done
 # Wait for all background processes to finish
 wait
 
-echo "Build process completed."
+echo "build process completed."

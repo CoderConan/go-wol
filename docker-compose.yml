@@ -1,0 +1,7 @@
+services:
+  go-wol:
+    image: go-wol:v1.0.0
+    container_name: go-wol
+    restart: always
+
+# docker compose up -d

@@ -84,11 +84,11 @@ func runCLI(mac string) {
 	}
 
 	// 调用 WOL 函数
-	log.Printf("Sending magic packet to MAC address: %s\n", mac)
+	log.Printf("sending magic packet to MAC address: %s\n", mac)
 	if err := wakeOnLan(mac); err != nil {
-		log.Printf("Failed to send magic packet: %v\n", err)
+		log.Printf("failed to send magic packet: %v\n", err)
 	} else {
-		log.Println("Magic packet sent successfully!")
+		log.Println("magic packet sent successfully!")
 	}
 }
 
@@ -101,26 +101,26 @@ func wakeOnLanHandler(w http.ResponseWriter, r *http.Request) {
 	// 解析 JSON 请求体
 	err := json.NewDecoder(r.Body).Decode(&req)
 	if err != nil || req.MacAddress == "" {
-		http.Error(w, "Invalid request", http.StatusBadRequest)
+		http.Error(w, "invalid request", http.StatusBadRequest)
 		return
 	}
 
 	// 记录请求的 MAC 地址和请求者 IP 地址
 	clientIP := r.RemoteAddr
-	log.Printf("Received request from IP: %s to wake up MAC address: %s\n", clientIP, req.MacAddress)
+	log.Printf("received request from IP: %s to wake up MAC address: %s\n", clientIP, req.MacAddress)
 
 	// 调用 WOL 函数
 	err = wakeOnLan(req.MacAddress)
 	if err != nil {
-		log.Printf("Failed to send magic packet to %s: %v\n", req.MacAddress, err)
-		http.Error(w, fmt.Sprintf("Failed to send magic packet: %v", err), http.StatusInternalServerError)
+		log.Printf("failed to send magic packet to %s: %v\n", req.MacAddress, err)
+		http.Error(w, fmt.Sprintf("failed to send magic packet: %v", err), http.StatusInternalServerError)
 		return
 	}
 
 	// 返回成功响应
-	log.Printf("Magic packet successfully sent to %s\n", req.MacAddress)
+	log.Printf("magic packet successfully sent to %s\n", req.MacAddress)
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Magic packet sent successfully!"))
+	w.Write([]byte("magic packet sent successfully!"))
 }
 
 func main() {
@@ -138,8 +138,8 @@ func main() {
 	http.HandleFunc("/wakeonlan", wakeOnLanHandler)
 
 	// 启动 Web 服务器
-	log.Println("Starting WOL API server on port 8080...")
+	log.Println("starting WOL API server on port 8080...")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
-		log.Fatalf("Failed to start server: %v\n", err)
+		log.Fatalf("failed to start server: %v\n", err)
 	}
 }
